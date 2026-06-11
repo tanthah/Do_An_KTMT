@@ -40,7 +40,7 @@ LRESULT CALLBACK MainMenuProc(
             // Title Box: Static control with border
             HWND hwndTitle = CreateWindow(
                 "STATIC",
-                "HẸ THONG CHUYEN DOI HE CO SO",
+                "HE THONG CHUYEN DOI HE CO SO",
                 WS_CHILD | WS_VISIBLE | WS_BORDER | SS_CENTER | SS_CENTERIMAGE,
                 200, 60, 500, 60,
                 hwnd,
