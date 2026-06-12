@@ -1,6 +1,6 @@
 #pragma once
 
-#define WINDOW_WIDTH   900
-#define WINDOW_HEIGHT  650
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 650
 
 #define TITLE_TEXT "HE THONG CHUYEN DOI HE CO SO"
