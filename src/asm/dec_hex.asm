@@ -11,16 +11,16 @@ section .text
 ; ---------------------------------------------------------
 WriteError:
     ; RDX = output buffer
-    lea rsi, [rel err_msg]
-    mov rdi, rdx
+    lea rsi, [rel err_msg] // Load error message address
+    mov rdi, rdx // Output buffer - caller must provide
 .copy_err:
-    mov al, byte [rsi]
-    mov byte [rdi], al
-    test al, al
-    jz .done
-    inc rsi
-    inc rdi
-    jmp .copy_err
+    mov al, byte [rsi] // Load byte from error message
+    mov byte [rdi], al // Write to output buffer
+    test al, al // Check for null terminator
+    jz .done // If null terminator, we're done
+    inc rsi // Move to next byte in error message
+    inc rdi // Move to next byte in output buffer
+    jmp .copy_err // Loop until null terminator
 .done:
     ret
 
@@ -29,21 +29,21 @@ WriteError:
 ; Returns CF=1 if error, CF=0 if success (EAX valid)
 ; ---------------------------------------------------------
 ParseDec:
-    xor eax, eax
-    xor r8, r8      ; sign flag
-    mov r9, rcx     ; current char ptr
+    xor eax, eax // declare result
+    xor r8, r8  // r8 = sign flag (0=positive, 1=negative)
+    mov r9, rcx // r9 = pointer to input string
 
-    mov bl, byte [r9]
-    test bl, bl
-    jz .err         ; empty string -> err (though C++ handles this)
+    mov bl, byte [r9] // load first character
+    test bl, bl // check for empty string
+    jz .err  // empty string -> error
 
-    cmp bl, '-'
-    jne .parse_loop
-    mov r8, 1
-    inc r9
-    mov bl, byte [r9]
-    test bl, bl
-    jz .err         ; just "-" -> err
+    cmp bl, '-' // check for negative sign
+    jne .parse_loop // if not, jump to parsing
+    mov r8, 1 // set sign flag - negative
+    inc r9 // move to next character
+    mov bl, byte [r9] // load next character after '-'
+    test bl, bl // check if it's empty after '-'
+    jz .err   // if empty after '-' -> error
 
 .parse_loop:
     mov bl, byte [r9]

@@ -1,0 +1,14 @@
+#build_macOs
+.build_macOS
+.test
+.test.exe
+
+# Build artifacts
+build/
+dist/
+*.o
+*.obj
+converter
+app.exe
+*.exe
+
